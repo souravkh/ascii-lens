@@ -1,75 +1,120 @@
-# React + TypeScript + Vite
+# ASCII Lens
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Turn any image into colorful ASCII art, right in your browser. Upload a photo, pick a color mode, zoom in to see the detail, and download the result as a text file or a PNG.
 
-Currently, two official plugins are available:
+![color mode](https://img.shields.io/badge/mode-color-blueviolet) ![bw mode](https://img.shields.io/badge/mode-black%20%26%20white-lightgrey) ![spectrum mode](https://img.shields.io/badge/mode-spectrum-orange)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it does
 
-## React Compiler
+1. You upload an image.
+2. The app samples it into a grid of characters — darker areas get denser characters (`@`, `#`, `%`), lighter areas get sparser ones (`.`, `:`, ` `).
+3. Each character is colored based on the mode you pick.
+4. You can zoom in/out to inspect it, and download the final art.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Color modes
 
-## Expanding the ESLint configuration
+| Mode | What you get |
+|---|---|
+| **Color** | Each character uses the real color sampled from that part of your photo, slightly brightened so it's easy to see on the black background. |
+| **Black & white** | Every character is a shade of grey based on how bright that spot in the photo is — no color, just light and dark. |
+| **Spectrum** | Characters are colored using a rainbow gradient instead of the photo's real colors — good for a more artistic, less literal look. |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 🖼️ Upload any image (JPG, PNG, etc.)
+- 🎨 Switch between Color / Black & White / Spectrum instantly
+- 🔍 Zoom slider (1%–300%) to inspect detail, with smooth scrolling
+- 💾 Download as a `.txt` file (plain ASCII text) or a `.png` image (with colors baked in)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Requirements
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Before you start, make sure you have:
 
+- **Node.js** version 18 or higher — [download here](https://nodejs.org/)
+- **npm** (comes bundled with Node.js)
+
+To check what you already have installed, run:
+```bash
+node -v
+npm -v
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# 1. Clone the repository
+git clone https://github.com/souravkh/ascii-lens.git
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 2. Move into the project folder
+cd ascii-lens
+
+# 3. Install dependencies
+npm install
+```
+
+## Running the project
+
+**Start the development server:**
+```bash
+npm run dev
+```
+This will print a local URL (usually `http://localhost:5173`) — open it in your browser to use the app. Any changes you make to the code will show up instantly (hot reload).
+
+**Build for production:**
+```bash
+npm run build
+```
+This creates an optimized version of the app in a `dist/` folder, ready to be deployed anywhere that serves static files (Vercel, Netlify, GitHub Pages, etc.).
+
+**Preview the production build locally:**
+```bash
+npm run preview
+```
+
+**Check code quality (lint):**
+```bash
+npm run lint
+```
+
+## Project structure
 
 ```
+ascii-lens/
+├── public/                      # Static assets (favicon, icons)
+├── src/
+│   ├── App.tsx                  # Root component — just renders the feature
+│   ├── main.tsx                 # App entry point
+│   ├── index.css / App.css      # Global styles (Tailwind)
+│   └── feature/
+│       └── asciiimagechanger/   # The whole ASCII-conversion feature lives here
+│           ├── index.ts               # Public entry point for this feature
+│           ├── AsciiArtConverter.tsx  # Main component — ties everything together
+│           ├── Controls.tsx           # Buttons, mode switcher, zoom slider (UI only)
+│           ├── AsciiCanvas.tsx        # Renders the ASCII grid on screen
+│           ├── useAsciiConverter.ts   # Core logic: turns an image into a character grid
+│           ├── colorUtils.ts          # Functions that decide what color each character gets
+│           ├── gridUtils.ts           # Helpers for building/exporting the grid as text
+│           ├── exportUtils.ts         # Turns the grid into a downloadable PNG
+│           ├── constants.ts           # Fixed settings (grid size, font size, etc.)
+│           └── types.ts               # Shared TypeScript types
+├── package.json
+└── vite.config.ts
+```
+
+**Why organized this way?** Everything related to the ASCII feature lives in one folder (`feature/asciiimagechanger`), split by responsibility:
+- **Logic** (`useAsciiConverter.ts`, `colorUtils.ts`) doesn't know anything about buttons or screens.
+- **UI** (`Controls.tsx`, `AsciiCanvas.tsx`) doesn't know how images are converted — it just displays what it's given.
+- **`AsciiArtConverter.tsx`** connects the two together.
+
+This makes it easy to change one part (say, add a new color mode) without needing to understand or touch the rest.
+
+## Tech stack
+
+- [React 19](https://react.dev/) — UI library
+- [TypeScript](https://www.typescriptlang.org/) — type safety
+- [Vite](https://vite.dev/) — dev server & build tool
+- [Tailwind CSS](https://tailwindcss.com/) — styling
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](./LICENSE) file for details.
