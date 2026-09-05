@@ -10,8 +10,12 @@ interface ControlsProps {
   onZoomChange: (zoom: number) => void;
   hasGrid: boolean;
   fileName: string;
-  onDownload: () => void;
+  onDownloadText: () => void;
+  onDownloadPng: () => void;
 }
+
+const panelBorder = "#262626";
+const mutedText = "#a3a3a3";
 
 /**
  * Purely presentational: every value it shows and every action it
@@ -28,16 +32,36 @@ export function Controls({
   onZoomChange,
   hasGrid,
   fileName,
-  onDownload,
+  onDownloadText,
+  onDownloadPng,
 }: ControlsProps) {
   return (
-    <section className="control-deck" aria-label="ASCII controls">
-      <div className="control-row">
+    <>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 980,
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 10,
+          alignItems: "center",
+        }}
+      >
         <button
-          className="upload-button"
           onClick={() => fileInputRef.current?.click()}
+          style={{
+            padding: "9px 16px",
+            borderRadius: 8,
+            border: `1px solid ${panelBorder}`,
+            background: "#171717",
+            color: "inherit",
+            fontSize: 13,
+            fontWeight: 500,
+            cursor: "pointer",
+            fontFamily: "inherit",
+          }}
         >
-          <span className="button-icon">+</span> Choose image
+          Choose image
         </button>
         <input
           ref={fileInputRef}
@@ -47,30 +71,86 @@ export function Controls({
           style={{ display: "none" }}
         />
 
-        <div className="mode-switch" role="group" aria-label="Color mode">
-          {(["color", "bw"] as ColorMode[]).map((mode) => (
+        <div
+          style={{
+            display: "flex",
+            border: `1px solid ${panelBorder}`,
+            borderRadius: 8,
+            overflow: "hidden",
+          }}
+        >
+          {(["color", "bw", "spectrum"] as ColorMode[]).map((mode) => (
             <button
               key={mode}
               onClick={() => onColorModeChange(mode)}
-              className={colorMode === mode ? "mode-button active" : "mode-button"}
+              style={{
+                padding: "9px 14px",
+                border: "none",
+                background: colorMode === mode ? "#f5f5f5" : "transparent",
+                color: colorMode === mode ? "#111111" : "inherit",
+                fontSize: 13,
+                fontFamily: "inherit",
+                cursor: "pointer",
+              }}
             >
-              {mode === "color" ? "Color" : "Black & white"}
+              {mode === "color" ? "Color" : mode === "bw" ? "Black & white" : "Spectrum"}
             </button>
           ))}
         </div>
 
         {hasGrid && (
-          <button className="download-button" onClick={onDownload}>Export .txt <span>↗</span></button>
+          <>
+            <button
+              onClick={onDownloadText}
+              style={{
+                padding: "9px 16px",
+                borderRadius: 8,
+                border: `1px solid ${panelBorder}`,
+                background: "transparent",
+                color: "inherit",
+                fontSize: 13,
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Download .txt
+            </button>
+            <button
+              onClick={onDownloadPng}
+              style={{
+                padding: "9px 16px",
+                borderRadius: 8,
+                border: `1px solid ${panelBorder}`,
+                background: "transparent",
+                color: "inherit",
+                fontSize: 13,
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Download PNG
+            </button>
+          </>
         )}
 
         {fileName && (
-          <span className="file-name" title={fileName}>{fileName}</span>
+          <span style={{ fontSize: 12, color: mutedText }}>{fileName}</span>
         )}
       </div>
 
       {hasGrid && (
-        <div className="zoom-control">
-          <span className="control-label">ZOOM</span>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: 980,
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <span style={{ fontSize: 12, color: mutedText, whiteSpace: "nowrap" }}>
+            Zoom
+          </span>
           <input
             type="range"
             min={1}
@@ -78,13 +158,15 @@ export function Controls({
             step={1}
             value={zoom}
             onChange={(e) => onZoomChange(Number(e.target.value))}
-            className="zoom-range"
+            style={{ flex: 1, accentColor: "#f5f5f5" }}
           />
-          <span className="zoom-value">
+          <span
+            style={{ fontSize: 12, color: mutedText, width: 44, textAlign: "right" }}
+          >
             {zoom}%
           </span>
         </div>
       )}
-    </section>
+    </>
   );
 }

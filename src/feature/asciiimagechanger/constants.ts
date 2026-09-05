@@ -1,4 +1,4 @@
-export const DENSITY = " .:-=+*#%@"; // light -> dark
+export const DENSITY = " .,:;irsXA253hMHGS#9B&@"; // light -> dark
 export const COLS = 100; // ascii grid width (characters per row)
 export const CELL_W = 8; // base cell width in px at 100% zoom
 export const LINE_H = 11; // base line height in px at 100% zoom

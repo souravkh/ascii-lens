@@ -2,9 +2,12 @@ import { useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import { useAsciiConverter } from "./useAsciiConverter";
 import { toDisplayGrid, gridToText, downloadTextFile } from "./gridUtils";
+import { renderGridToCanvas, downloadCanvasAsPng } from "./exportUtils";
 import { Controls } from "./Controls";
 import { AsciiCanvas } from "./AsciiCanvas";
 import type { ColorMode } from "./types";
+
+const mutedText = "#a3a3a3";
 
 /**
  * Container component. It owns two kinds of state:
@@ -24,6 +27,8 @@ export default function AsciiArtConverter() {
   const [colorMode, setColorMode] = useState<ColorMode>("color");
   const fileInputRef = useRef<HTMLInputElement>(null!);
 
+  // Expensive-ish (loops over every cell) but only reruns when the
+  // grid or color mode actually change — not on every zoom tick.
   const coloredGrid = useMemo(
     () => toDisplayGrid(grid, colorMode),
     [grid, colorMode]
@@ -36,24 +41,43 @@ export default function AsciiArtConverter() {
     processImage(file);
   };
 
-  const handleDownload = () => {
+  const handleDownloadText = () => {
     const text = gridToText(grid);
     const name = `${fileName.replace(/\.[^/.]+$/, "") || "ascii-art"}.txt`;
     downloadTextFile(text, name);
   };
 
+  const handleDownloadPng = () => {
+    const canvas = renderGridToCanvas(coloredGrid, 2); // 2x supersampled
+    const name = `${fileName.replace(/\.[^/.]+$/, "") || "ascii-art"}.png`;
+    downloadCanvasAsPng(canvas, name);
+  };
+
   return (
-    <main className="ascii-studio">
-      <header className="studio-header">
-        <div>
-          <p className="eyebrow">ASCII LENS - PROFILE IMAGE</p>
-          <h1>Turn a image into characters.</h1>
-          <p className="studio-intro">
-            A small, tactile workspace for translating pixels into expressive text.
-          </p>
-        </div>
-        <div className="header-mark" aria-hidden="true">[ @#%*+=-. ]</div>
-      </header>
+    <div
+      style={{
+        minHeight: "100%",
+        width: "100%",
+        background: "#000000",
+        color: "#f5f5f5",
+        fontFamily:
+          "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        padding: "32px 20px",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 20,
+      }}
+    >
+      <div style={{ width: "100%", maxWidth: 980 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}>
+          Image → ASCII
+        </h1>
+        <p style={{ fontSize: 13, color: mutedText, margin: "6px 0 0" }}>
+          Upload a picture, pick color or black & white, then use the slider to zoom.
+        </p>
+      </div>
 
       <Controls
         fileInputRef={fileInputRef}
@@ -64,7 +88,8 @@ export default function AsciiArtConverter() {
         onZoomChange={setZoom}
         hasGrid={grid.length > 0}
         fileName={fileName}
-        onDownload={handleDownload}
+        onDownloadText={handleDownloadText}
+        onDownloadPng={handleDownloadPng}
       />
 
       <AsciiCanvas
@@ -74,10 +99,6 @@ export default function AsciiArtConverter() {
         hasImage={grid.length > 0}
         error={error}
       />
-      <footer className="studio-footer">
-        <span>LOCAL PROCESSING</span>
-        <span>100 COLUMNS / CHARACTER MAPPING</span>
-      </footer>
-    </main>
+    </div>
   );
 }

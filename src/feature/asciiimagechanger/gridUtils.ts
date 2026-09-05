@@ -1,5 +1,5 @@
 import type { Cell, DisplayCell, ColorMode } from "./types";
-import { colorRgb, colorGrey } from "./colorUtils";
+import { colorRgb, colorGrey, colorSpectrum } from "./colorUtils";
 
 /**
  * Resolves raw Cell data into render-ready DisplayCell data for the
@@ -10,13 +10,17 @@ export function toDisplayGrid(
   grid: Cell[][],
   colorMode: ColorMode
 ): DisplayCell[][] {
-  return grid.map((row) =>
-    row.map((cell) => ({
+  const rows = grid.length;
+
+  return grid.map((row, y) =>
+    row.map((cell, x) => ({
       char: cell.char,
       color: cell.isBlank
         ? "transparent"
         : colorMode === "color"
         ? colorRgb(cell.r, cell.g, cell.b)
+        : colorMode === "spectrum"
+        ? colorSpectrum(cell.r, cell.g, cell.b, x, y, row.length, rows)
         : colorGrey(cell.brightness),
     }))
   );

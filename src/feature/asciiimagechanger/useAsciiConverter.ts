@@ -2,6 +2,10 @@ import { useCallback, useRef, useState } from "react";
 import type { Cell } from "./types";
 import { DENSITY, COLS, ASPECT_CORRECTION } from "./constants";
 
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), max);
+}
+
 interface UseAsciiConverterResult {
   grid: Cell[][];
   fileName: string;
@@ -77,9 +81,16 @@ export function useAsciiConverter(): UseAsciiConverterResult {
                 continue;
               }
 
+              const normalized = clamp(brightness / 255, 0, 1);
+              const shadowLift = Math.max(0, (0.36 - normalized) * 0.8);
+              const contrastBoost = Math.pow(
+                clamp(normalized + shadowLift, 0, 1),
+                0.82
+              );
+
               const level = Math.min(
                 DENSITY.length - 1,
-                Math.floor((brightness / 255) * DENSITY.length)
+                Math.floor(contrastBoost * (DENSITY.length - 1))
               );
               const char = DENSITY[level];
 
