@@ -54,28 +54,14 @@ export default function AsciiArtConverter() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100%",
-        width: "100%",
-        background: "#000000",
-        color: "#f5f5f5",
-        fontFamily:
-          "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-        padding: "32px 20px",
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 20,
-      }}
+    <div className="min-h-full w-full bg-black py-8 px-5 text-white box-border flex flex-col items-center gap-4"
     >
-      <div style={{ width: "100%", maxWidth: 980 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}>
+      <div>
+        <h1 className="text-3xl font-bold">
           Image → ASCII
         </h1>
-        <p style={{ fontSize: 13, color: mutedText, margin: "6px 0 0" }}>
-          Upload a picture, pick color or black & white, then use the slider to zoom.
+        <p className="text-amber-200 text-sm justify-center">
+          Upload a picture, pick color | black & white | spectrum, then use the slider to zoom.
         </p>
       </div>
 
