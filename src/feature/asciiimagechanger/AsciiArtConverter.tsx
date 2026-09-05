@@ -58,7 +58,7 @@ export default function AsciiArtConverter() {
     <div
       style={{
         position: "relative",
-        minHeight: "100%",
+        minHeight: "100vh",
         width: "100%",
         background: "#000000",
         color: "#f5f5f5",

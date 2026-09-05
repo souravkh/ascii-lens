@@ -3,16 +3,14 @@
  * -------------------
  * Purely decorative, purely presentational — no props, no state, no
  * logic. Sits behind the actual app content as an absolutely
- * positioned layer. Kept as its own component (rather than inline
- * styles on the root div) so it can be swapped out or removed later
- * without touching any conversion or UI logic.
+ * positioned layer.
  *
  * Two layers:
  *  1. A static dot-grid pattern (CSS radial-gradient tiled via
  *     background-size) — gives the terminal/ascii feel.
- *  2. A soft, slowly drifting radial glow behind the grid, purely for
- *     subtle visual life. Uses a <style> tag for @keyframes since
- *     inline style objects can't express animations.
+ *  2. Two soft, drifting radial glows behind the grid, for visual
+ *     life. Uses a <style> tag for @keyframes since inline style
+ *     objects can't express animations.
  */
 export function BackgroundEffect() {
   return (
@@ -27,10 +25,15 @@ export function BackgroundEffect() {
       }}
     >
       <style>{`
-        @keyframes bg-glow-drift {
-          0%   { transform: translate(-10%, -10%); }
-          50%  { transform: translate(10%, 15%); }
-          100% { transform: translate(-10%, -10%); }
+        @keyframes bg-glow-drift-a {
+          0%   { transform: translate(0%, 0%) scale(1); }
+          50%  { transform: translate(25%, 20%) scale(1.15); }
+          100% { transform: translate(0%, 0%) scale(1); }
+        }
+        @keyframes bg-glow-drift-b {
+          0%   { transform: translate(0%, 0%) scale(1); }
+          50%  { transform: translate(-20%, -25%) scale(1.1); }
+          100% { transform: translate(0%, 0%) scale(1); }
         }
       `}</style>
 
@@ -38,25 +41,27 @@ export function BackgroundEffect() {
       <div
         style={{
           position: "absolute",
-          top: "-20%",
-          left: "-20%",
-          width: "70%",
-          height: "70%",
+          top: "-25%",
+          left: "-25%",
+          width: "75%",
+          height: "75%",
           background:
-            "radial-gradient(circle, rgba(80,120,255,0.10) 0%, rgba(80,120,255,0) 70%)",
-          animation: "bg-glow-drift 22s ease-in-out infinite",
+            "radial-gradient(circle, rgba(90,130,255,0.28) 0%, rgba(90,130,255,0) 70%)",
+          animation: "bg-glow-drift-a 12s ease-in-out infinite",
+          willChange: "transform",
         }}
       />
       <div
         style={{
           position: "absolute",
-          bottom: "-15%",
-          right: "-15%",
-          width: "60%",
-          height: "60%",
+          bottom: "-20%",
+          right: "-20%",
+          width: "65%",
+          height: "65%",
           background:
-            "radial-gradient(circle, rgba(255,90,120,0.08) 0%, rgba(255,90,120,0) 70%)",
-          animation: "bg-glow-drift 28s ease-in-out infinite reverse",
+            "radial-gradient(circle, rgba(255,90,130,0.22) 0%, rgba(255,90,130,0) 70%)",
+          animation: "bg-glow-drift-b 15s ease-in-out infinite",
+          willChange: "transform",
         }}
       />
 
@@ -66,8 +71,8 @@ export function BackgroundEffect() {
           position: "absolute",
           inset: 0,
           backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.09) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
+            "radial-gradient(rgba(255,255,255,0.18) 1.5px, transparent 1.5px)",
+          backgroundSize: "24px 24px",
         }}
       />
 
@@ -78,7 +83,7 @@ export function BackgroundEffect() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(ellipse at center, transparent 40%, #000000 100%)",
+            "radial-gradient(ellipse at center, transparent 35%, #000000 100%)",
         }}
       />
     </div>
