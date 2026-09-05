@@ -21,10 +21,10 @@ Turn any image into colorful ASCII art, right in your browser. Upload a photo, p
 
 ## Features
 
-- 🖼️ Upload any image (JPG, PNG, etc.)
-- 🎨 Switch between Color / Black & White / Spectrum instantly
-- 🔍 Zoom slider (1%–300%) to inspect detail, with smooth scrolling
-- 💾 Download as a `.txt` file (plain ASCII text) or a `.png` image (with colors baked in)
+- Upload any image (JPG, PNG, etc.)
+- Switch between Color / Black & White / Spectrum instantly
+- Zoom slider (1%–300%) to inspect detail, with smooth scrolling
+- Download as a `.txt` file (plain ASCII text) or a `.png` image (with colors baked in)
 
 ## Requirements
 
