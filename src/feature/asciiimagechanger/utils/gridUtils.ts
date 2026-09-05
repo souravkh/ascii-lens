@@ -1,4 +1,4 @@
-import type { Cell, DisplayCell, ColorMode } from "./types";
+import type { Cell, DisplayCell, ColorMode } from "../types";
 import { colorRgb, colorGrey, colorSpectrum } from "./colorUtils";
 
 /**

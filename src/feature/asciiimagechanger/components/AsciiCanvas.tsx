@@ -1,5 +1,5 @@
-import type { DisplayCell } from "./types";
-import { COLS, CELL_W, LINE_H, FONT_SIZE } from "./constants";
+import type { DisplayCell } from "../types";
+import { COLS, CELL_W, LINE_H, FONT_SIZE } from "../constants";
 
 interface AsciiCanvasProps {
   coloredGrid: DisplayCell[][];

@@ -1,5 +1,5 @@
-import type { DisplayCell } from "./types";
-import { COLS, CELL_W, LINE_H, FONT_SIZE } from "./constants";
+import type { DisplayCell } from "../types";
+import { COLS, CELL_W, LINE_H, FONT_SIZE } from "../constants";
 
 /**
  * Draws the resolved (colored) grid onto an off-screen canvas at a

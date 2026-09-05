@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import type { Cell } from "./types";
-import { DENSITY, COLS, ASPECT_CORRECTION } from "./constants";
+import type { Cell } from "../types";
+import { DENSITY, COLS, ASPECT_CORRECTION } from "../constants";
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
@@ -14,14 +14,6 @@ interface UseAsciiConverterResult {
   processImage: (file: File) => void;
 }
 
-/**
- * Encapsulates "how do I turn an image file into an ASCII grid" —
- * completely independent of how it's rendered or controlled. Because
- * the logic lives here rather than inside a component, it can be:
- *  - reused by a different UI (e.g. a CLI, a different layout)
- *  - unit tested by mocking File/Image/Canvas
- *  - reasoned about without touching any JSX
- */
 export function useAsciiConverter(): UseAsciiConverterResult {
   const [grid, setGrid] = useState<Cell[][]>([]);
   const [fileName, setFileName] = useState("");
@@ -106,6 +98,7 @@ export function useAsciiConverter(): UseAsciiConverterResult {
           setIsProcessing(false);
         }
       };
+
       img.onerror = () => {
         setError("Couldn't read that file as an image.");
         setIsProcessing(false);

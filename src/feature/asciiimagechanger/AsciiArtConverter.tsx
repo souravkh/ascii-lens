@@ -1,10 +1,11 @@
 import { useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
-import { useAsciiConverter } from "./useAsciiConverter";
-import { toDisplayGrid, gridToText, downloadTextFile } from "./gridUtils";
-import { renderGridToCanvas, downloadCanvasAsPng } from "./exportUtils";
-import { Controls } from "./Controls";
-import { AsciiCanvas } from "./AsciiCanvas";
+import { useAsciiConverter } from "./hooks/useAsciiConverter";
+import { toDisplayGrid, gridToText, downloadTextFile } from "./utils/gridUtils";
+import { renderGridToCanvas, downloadCanvasAsPng } from "./utils/exportUtils";
+import { Controls } from "./components/Controls";
+import { AsciiCanvas } from "./components/AsciiCanvas";
+import { BackgroundEffect } from "./components/BackgroundEffect";
 import type { ColorMode } from "./types";
 
 const mutedText = "#a3a3a3";
@@ -23,7 +24,7 @@ export default function AsciiArtConverter() {
   const { grid, fileName, isProcessing, error, processImage } =
     useAsciiConverter();
 
-  const [zoom, setZoom] = useState(37);
+  const [zoom, setZoom] = useState(100);
   const [colorMode, setColorMode] = useState<ColorMode>("color");
   const fileInputRef = useRef<HTMLInputElement>(null!);
 
@@ -37,7 +38,7 @@ export default function AsciiArtConverter() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setZoom(37);
+    setZoom(100);
     processImage(file);
   };
 
@@ -54,37 +55,68 @@ export default function AsciiArtConverter() {
   };
 
   return (
-    <div className="min-h-full w-full bg-black py-8 px-5 text-white box-border flex flex-col items-center gap-4"
+    <div
+      style={{
+        position: "relative",
+        minHeight: "100%",
+        width: "100%",
+        background: "#000000",
+        color: "#f5f5f5",
+        fontFamily:
+          "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+        padding: "32px 20px",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 20,
+        overflow: "hidden",
+      }}
     >
-      <div>
-        <h1 className="text-3xl font-bold">
+      <BackgroundEffect />
+
+      <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 980 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}>
           Image → ASCII
         </h1>
-        <p className="text-amber-200 text-sm justify-center">
-          Upload a picture, pick color | black & white | spectrum, then use the slider to zoom.
+        <p style={{ fontSize: 13, color: mutedText, margin: "6px 0 0" }}>
+          Upload a picture, pick color or black & white, then use the slider to zoom.
         </p>
       </div>
 
-      <Controls
-        fileInputRef={fileInputRef}
-        onFileChange={handleFileChange}
-        colorMode={colorMode}
-        onColorModeChange={setColorMode}
-        zoom={zoom}
-        onZoomChange={setZoom}
-        hasGrid={grid.length > 0}
-        fileName={fileName}
-        onDownloadText={handleDownloadText}
-        onDownloadPng={handleDownloadPng}
-      />
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          width: "100%",
+          maxWidth: 980,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 20,
+        }}
+      >
+        <Controls
+          fileInputRef={fileInputRef}
+          onFileChange={handleFileChange}
+          colorMode={colorMode}
+          onColorModeChange={setColorMode}
+          zoom={zoom}
+          onZoomChange={setZoom}
+          hasGrid={grid.length > 0}
+          fileName={fileName}
+          onDownloadText={handleDownloadText}
+          onDownloadPng={handleDownloadPng}
+        />
 
-      <AsciiCanvas
-        coloredGrid={coloredGrid}
-        zoom={zoom}
-        isProcessing={isProcessing}
-        hasImage={grid.length > 0}
-        error={error}
-      />
+        <AsciiCanvas
+          coloredGrid={coloredGrid}
+          zoom={zoom}
+          isProcessing={isProcessing}
+          hasImage={grid.length > 0}
+          error={error}
+        />
+      </div>
     </div>
   );
 }

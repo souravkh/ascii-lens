@@ -1,5 +1,5 @@
 import type { ChangeEvent, RefObject } from "react";
-import type { ColorMode } from "./types";
+import type { ColorMode } from "../types";
 
 interface ControlsProps {
   fileInputRef: RefObject<HTMLInputElement>;
