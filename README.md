@@ -108,13 +108,6 @@ ascii-lens/
 └── vite.config.ts
 ```
 
-**Why organized this way?** Everything related to the ASCII feature lives in one folder (`feature/asciiimagechanger`), split by responsibility:
-- **Logic** (`hooks/useAsciiConverter.ts`, `utils/colorUtils.ts`) doesn't know anything about buttons or screens.
-- **UI** (`components/Controls.tsx`, `components/AsciiCanvas.tsx`) doesn't know how images are converted — it just displays what it's given.
-- **`AsciiArtConverter.tsx`** connects the two together.
-
-This makes it easy to change one part (say, add a new color mode) without needing to understand or touch the rest.
-
 ## Tech stack
 
 - [React 19](https://react.dev/) — UI library
