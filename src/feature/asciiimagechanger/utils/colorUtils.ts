@@ -13,10 +13,12 @@ function rgbToHue(r: number, g: number, b: number): number {
 
   if (delta === 0) return 0;
 
-  let hue = 0;
-  if (max === rn) hue = ((gn - bn) / delta) % 6;
-  else if (max === gn) hue = (bn - rn) / delta + 2;
-  else hue = (rn - gn) / delta + 4;
+  const hue =
+    max === rn
+      ? ((gn - bn) / delta) % 6
+      : max === gn
+      ? (bn - rn) / delta + 2
+      : (rn - gn) / delta + 4;
 
   return (hue * 60 + 360) % 360;
 }
@@ -30,16 +32,18 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
   const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
   const m = light - c / 2;
 
-  let r = 0;
-  let g = 0;
-  let b = 0;
-
-  if (hue < 60) [r, g, b] = [c, x, 0];
-  else if (hue < 120) [r, g, b] = [x, c, 0];
-  else if (hue < 180) [r, g, b] = [0, c, x];
-  else if (hue < 240) [r, g, b] = [0, x, c];
-  else if (hue < 300) [r, g, b] = [x, 0, c];
-  else [r, g, b] = [c, 0, x];
+  const [r, g, b] =
+    hue < 60
+      ? [c, x, 0]
+      : hue < 120
+      ? [x, c, 0]
+      : hue < 180
+      ? [0, c, x]
+      : hue < 240
+      ? [0, x, c]
+      : hue < 300
+      ? [x, 0, c]
+      : [c, 0, x];
 
   return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
 }
