@@ -2,7 +2,7 @@
 
 Turn any image into colorful ASCII art, right in your browser. Upload a photo, pick a color mode, zoom in to see the detail, and download the result as a text file or a PNG.
 
-![color mode](https://img.shields.io/badge/mode-color-blueviolet) ![bw mode](https://img.shields.io/badge/mode-black%20%26%20white-lightgrey) ![spectrum mode](https://img.shields.io/badge/mode-spectrum-orange)
+![color mode](https://img.shields.io/badge/mode-color-blueviolet)![color mode with low detail](https://img.shields.io/badge/mode-color-blueviolet) ![bw mode](https://img.shields.io/badge/mode-black%20%26%20white-lightgrey) ![spectrum mode](https://img.shields.io/badge/mode-spectrum-orange)
 
 ## What it does
 
@@ -15,7 +15,7 @@ Turn any image into colorful ASCII art, right in your browser. Upload a photo, p
 
 | Mode | What you get |
 |---|---|
-| **Color** | Each character uses the real color sampled from that part of your photo, slightly brightened so it's easy to see on the black background. |
+| **Color** | Each character uses the real color sampled from that part of your photo, slightly brightened so it's easy to see on the black background. with lower detail variant|
 | **Black & white** | Every character is a shade of grey based on how bright that spot in the photo is — no color, just light and dark. |
 | **Spectrum** | Characters are colored using a rainbow gradient instead of the photo's real colors — good for a more artistic, less literal look. |
 

@@ -65,7 +65,7 @@ export function Controls({
             overflow: "hidden",
           }}
         >
-          {(["color", "bw", "spectrum"] as ColorMode[]).map((mode) => (
+          {(["color", "bw", "spectrum", "soft"] as ColorMode[]).map((mode) => (
             <button
               key={mode}
               onClick={() => onColorModeChange(mode)}
@@ -80,7 +80,13 @@ export function Controls({
                 cursor: "pointer",
               }}
             >
-              {mode === "color" ? "Color" : mode === "bw" ? "Black & white" : "Spectrum"}
+              {mode === "color"
+                ? "Color"
+                : mode === "bw"
+                ? "Black & white"
+                : mode === "spectrum"
+                ? "Spectrum"
+                : "Low detail"}
             </button>
           ))}
         </div>

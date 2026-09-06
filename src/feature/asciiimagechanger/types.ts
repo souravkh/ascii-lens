@@ -1,4 +1,4 @@
-export type ColorMode = "color" | "bw" | "spectrum";
+export type ColorMode = "color" | "bw" | "spectrum" | "soft";
 
 /**
  * Raw sampled data for one grid cell. This is the "model" — it never

@@ -115,3 +115,23 @@ export function colorGrey(brightness: number): string {
   const v = clamp(Math.round(45 + Math.pow(t, 0.6) * 215), 0, 255);
   return `rgb(${v}, ${v}, ${v})`;
 }
+
+export function colorSoft(
+  r: number,
+  g: number,
+  b: number,
+  brightness: number
+): string {
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  const lift = clamp((0.5 - luminance) * 0.6, 0, 0.28);
+  const softR = clamp(Math.round(r * 0.72 + lift * 255), 0, 255);
+  const softG = clamp(Math.round(g * 0.72 + lift * 255), 0, 255);
+  const softB = clamp(Math.round(b * 0.72 + lift * 255), 0, 255);
+
+  const blurBoost = clamp((brightness / 255) * 0.35, 0, 0.28);
+  const finalR = clamp(Math.round(softR + blurBoost * 255), 0, 255);
+  const finalG = clamp(Math.round(softG + blurBoost * 255), 0, 255);
+  const finalB = clamp(Math.round(softB + blurBoost * 255), 0, 255);
+
+  return `rgb(${finalR}, ${finalG}, ${finalB})`;
+}

@@ -8,8 +8,6 @@ import { AsciiCanvas } from "./components/AsciiCanvas";
 import { MatrixRainBackground } from "./components/MatrixRainBackground";
 import type { ColorMode } from "./types";
 
-const mutedText = "#a3a3a3";
-
 /**
  * Container component. It owns two kinds of state:
  *  1. Delegated to useAsciiConverter — the actual conversion logic
@@ -24,7 +22,7 @@ export default function AsciiArtConverter() {
   const { grid, fileName, isProcessing, error, processImage } =
     useAsciiConverter();
 
-  const [zoom, setZoom] = useState(40);
+  const [zoom, setZoom] = useState(37);
   const [colorMode, setColorMode] = useState<ColorMode>("color");
   const fileInputRef = useRef<HTMLInputElement>(null!);
 
@@ -38,7 +36,7 @@ export default function AsciiArtConverter() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setZoom(40);
+    setZoom(37);
     processImage(file);
   };
 
@@ -74,7 +72,7 @@ export default function AsciiArtConverter() {
         </h1>
         <p
           className="text-[13px] text-yellow-400 mr-[6px_0_0]">
-          Upload a picture, pick color, black & white, spectrum, then use the slider to zoom.
+          Upload a picture, pick a view mode, then use the slider to zoom.
         </p>
       </div>
 

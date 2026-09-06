@@ -1,5 +1,5 @@
 import type { Cell, DisplayCell, ColorMode } from "../types";
-import { colorRgb, colorGrey, colorSpectrum } from "./colorUtils";
+import { colorRgb, colorGrey, colorSpectrum, colorSoft } from "./colorUtils";
 
 /**
  * Resolves raw Cell data into render-ready DisplayCell data for the
@@ -21,6 +21,8 @@ export function toDisplayGrid(
         ? colorRgb(cell.r, cell.g, cell.b)
         : colorMode === "spectrum"
         ? colorSpectrum(cell.r, cell.g, cell.b, x, y, row.length, rows)
+        : colorMode === "soft"
+        ? colorSoft(cell.r, cell.g, cell.b, cell.brightness)
         : colorGrey(cell.brightness),
     }))
   );
