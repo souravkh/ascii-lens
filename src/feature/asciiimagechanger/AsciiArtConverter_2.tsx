@@ -5,7 +5,7 @@ import { toDisplayGrid, gridToText, downloadTextFile } from "./utils/gridUtils";
 import { renderGridToCanvas, downloadCanvasAsPng } from "./utils/exportUtils";
 import { Controls } from "./components/Controls";
 import { AsciiCanvas } from "./components/AsciiCanvas";
-import { MatrixRainBackground } from "./components/MatrixRainBackground";
+import { BackgroundEffect } from "./components/BackgroundEffect";
 import type { ColorMode } from "./types";
 
 const mutedText = "#a3a3a3";
@@ -73,7 +73,7 @@ export default function AsciiArtConverter() {
         overflow: "hidden",
       }}
     >
-      <MatrixRainBackground />
+      <BackgroundEffect />
 
       <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 980 }}>
         <h1 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}>
