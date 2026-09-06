@@ -82,28 +82,35 @@ npm run lint
 ascii-lens/
 ├── public/                      # Static assets (favicon, icons)
 ├── src/
+│   ├── assets/                  # Image and SVG assets
 │   ├── App.tsx                  # Root component — just renders the feature
 │   ├── main.tsx                 # App entry point
 │   ├── index.css / App.css      # Global styles (Tailwind)
 │   └── feature/
 │       └── asciiimagechanger/   # The whole ASCII-conversion feature lives here
-│           ├── index.ts               # Public entry point for this feature
-│           ├── AsciiArtConverter.tsx  # Main component — ties everything together
-│           ├── Controls.tsx           # Buttons, mode switcher, zoom slider (UI only)
-│           ├── AsciiCanvas.tsx        # Renders the ASCII grid on screen
-│           ├── useAsciiConverter.ts   # Core logic: turns an image into a character grid
-│           ├── colorUtils.ts          # Functions that decide what color each character gets
-│           ├── gridUtils.ts           # Helpers for building/exporting the grid as text
-│           ├── exportUtils.ts         # Turns the grid into a downloadable PNG
-│           ├── constants.ts           # Fixed settings (grid size, font size, etc.)
-│           └── types.ts               # Shared TypeScript types
+│           ├── components/
+│           │   ├── AsciiCanvas.tsx          # Renders the ASCII grid on screen
+│           │   ├── BackgroundEffect.tsx     # Background effect wrapper
+│           │   ├── Controls.tsx             # Buttons, mode switcher, zoom slider (UI only)
+│           │   └── MatrixRainBackground.tsx # Matrix rain background animation
+│           ├── hooks/
+│           │   └── useAsciiConverter.ts     # Core logic: turns an image into a character grid
+│           ├── utils/
+│           │   ├── colorUtils.ts            # Functions that decide what color each character gets
+│           │   ├── exportUtils.ts           # Turns the grid into a downloadable PNG
+│           │   └── gridUtils.ts             # Helpers for building/exporting the grid as text
+│           ├── index.ts                     # Public entry point for this feature
+│           ├── AsciiArtConverter.tsx        # Main component — ties everything together
+│           ├── AsciiArtConverter_2.tsx      # Alternative main component implementation
+│           ├── constants.ts                 # Fixed settings (grid size, font size, etc.)
+│           └── types.ts                     # Shared TypeScript types
 ├── package.json
 └── vite.config.ts
 ```
 
 **Why organized this way?** Everything related to the ASCII feature lives in one folder (`feature/asciiimagechanger`), split by responsibility:
-- **Logic** (`useAsciiConverter.ts`, `colorUtils.ts`) doesn't know anything about buttons or screens.
-- **UI** (`Controls.tsx`, `AsciiCanvas.tsx`) doesn't know how images are converted — it just displays what it's given.
+- **Logic** (`hooks/useAsciiConverter.ts`, `utils/colorUtils.ts`) doesn't know anything about buttons or screens.
+- **UI** (`components/Controls.tsx`, `components/AsciiCanvas.tsx`) doesn't know how images are converted — it just displays what it's given.
 - **`AsciiArtConverter.tsx`** connects the two together.
 
 This makes it easy to change one part (say, add a new color mode) without needing to understand or touch the rest.
