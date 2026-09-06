@@ -135,15 +135,10 @@ export function Controls({
 
       {hasGrid && (
         <div
-          style={{
-            width: "100%",
-            maxWidth: 980,
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-          }}
+          className="w-full max-w-[980] flex align-middle gap-3"
         >
-          <span style={{ fontSize: 12, color: mutedText, whiteSpace: "nowrap" }}>
+          <span 
+          style={{ fontSize: 12, color: mutedText, whiteSpace: "nowrap" }}>
             Zoom
           </span>
           <input

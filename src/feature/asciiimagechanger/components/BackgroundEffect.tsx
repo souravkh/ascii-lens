@@ -16,13 +16,7 @@ export function BackgroundEffect() {
   return (
     <div
       aria-hidden="true"
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflow: "hidden",
-        pointerEvents: "none",
-        zIndex: 0,
-      }}
+      className="absolute inset-0 overflow-hidden pointer-events-none z-0"
     >
       <style>{`
         @keyframes bg-glow-drift-a {
@@ -39,6 +33,11 @@ export function BackgroundEffect() {
 
       {/* Soft moving glow, underneath the dot grid */}
       <div
+      className=" absolute
+  -top-[25%]
+  -left-[25%]
+  w-[75%]
+  h-[75%]"
         style={{
           position: "absolute",
           top: "-25%",

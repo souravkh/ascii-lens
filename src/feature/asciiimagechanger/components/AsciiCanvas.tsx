@@ -64,14 +64,14 @@ export function AsciiCanvas({
                 }}
               >
                 {coloredGrid.map((row, y) => (
-                  <div key={y} style={{ display: "flex" }}>
+                  <div key={y} className="flex">
                     {row.map((cell, x) => (
                       <span
                         key={x}
+                        className=" inline-block "
                         style={{
                           color: cell.color,
                           width: `${CELL_W}px`,
-                          display: "inline-block",
                           textAlign: "center",
                         }}
                       >
