@@ -38,28 +38,14 @@ export function Controls({
   return (
     <>
       <div
-        style={{
-          width: "100%",
-          maxWidth: 980,
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 10,
-          alignItems: "center",
-        }}
+      className="w-full max-w-[980px] w flex flex-wrap gap-10 items-center"
       >
         <button
           onClick={() => fileInputRef.current?.click()}
-          style={{
-            padding: "9px 16px",
-            borderRadius: 8,
-            border: `1px solid ${panelBorder}`,
-            background: "#171717",
-            color: "inherit",
-            fontSize: 13,
-            fontWeight: 500,
-            cursor: "pointer",
-            fontFamily: "inherit",
-          }}
+          className="px-4 py-[9px] rounded-lg border bg-[#171717] text-[13px] font-medium cursor-pointer 
+          onhover:text-green-500
+          font-[inherit]"
+          style={{ borderColor: panelBorder }}
         >
           Choose image
         </button>
@@ -83,6 +69,7 @@ export function Controls({
             <button
               key={mode}
               onClick={() => onColorModeChange(mode)}
+              className="hover:text-orange-400"
               style={{
                 padding: "9px 14px",
                 border: "none",
@@ -102,31 +89,33 @@ export function Controls({
           <>
             <button
               onClick={onDownloadText}
-              style={{
-                padding: "9px 16px",
-                borderRadius: 8,
-                border: `1px solid ${panelBorder}`,
-                background: "transparent",
-                color: "inherit",
-                fontSize: 13,
-                cursor: "pointer",
-                fontFamily: "inherit",
-              }}
+              className="
+  px-4 py-[9px]
+  text-green-400
+  border border-[#333]
+  rounded-lg
+  bg-transparent
+  cursor-pointer
+  text-[13px]
+  font-[inherit]
+  hover:text-orange-400
+"
             >
               Download .txt
             </button>
             <button
               onClick={onDownloadPng}
-              style={{
-                padding: "9px 16px",
-                borderRadius: 8,
-                border: `1px solid ${panelBorder}`,
-                background: "transparent",
-                color: "inherit",
-                fontSize: 13,
-                cursor: "pointer",
-                fontFamily: "inherit",
-              }}
+             className="
+  px-4 py-[9px]
+  text-green-400
+  border border-[#333]
+  rounded-lg
+  bg-transparent
+  cursor-pointer
+  text-[13px]
+  font-[inherit]
+  hover:text-orange-400
+"
             >
               Download PNG
             </button>

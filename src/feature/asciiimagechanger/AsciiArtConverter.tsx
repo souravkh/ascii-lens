@@ -24,7 +24,7 @@ export default function AsciiArtConverter() {
   const { grid, fileName, isProcessing, error, processImage } =
     useAsciiConverter();
 
-  const [zoom, setZoom] = useState(100);
+  const [zoom, setZoom] = useState(40);
   const [colorMode, setColorMode] = useState<ColorMode>("color");
   const fileInputRef = useRef<HTMLInputElement>(null!);
 
@@ -38,7 +38,7 @@ export default function AsciiArtConverter() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setZoom(100);
+    setZoom(40);
     processImage(file);
   };
 
@@ -56,45 +56,30 @@ export default function AsciiArtConverter() {
 
   return (
     <div
+      className="relative
+      min-h-screen w-full bg-black text-white 
+      p-[20px_80px] box-border flex flex-col item-center overflow-hidden gap-5"
       style={{
-        position: "relative",
-        minHeight: "100vh",
-        width: "100%",
-        background: "#000000",
-        color: "#f5f5f5",
         fontFamily:
           "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-        padding: "32px 20px",
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 20,
-        overflow: "hidden",
       }}
     >
       <MatrixRainBackground />
 
-      <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 980 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}>
+      <div 
+       className="relative z-10 w-full max-w-[980px]" >      
+        <h1 
+        className="font-bold text-[22px] border-spacing-0.5 m-0">
           Image → ASCII
         </h1>
-        <p style={{ fontSize: 13, color: mutedText, margin: "6px 0 0" }}>
-          Upload a picture, pick color or black & white, then use the slider to zoom.
+        <p
+          className="text-[13px] text-yellow-400 mr-[6px_0_0]">
+          Upload a picture, pick color, black & white, spectrum, then use the slider to zoom.
         </p>
       </div>
 
       <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          width: "100%",
-          maxWidth: 980,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 20,
-        }}
+     className="relative z-[1] w-full max-w-[980px] flex flex-col items-center gap-[20px]"
       >
         <Controls
           fileInputRef={fileInputRef}
