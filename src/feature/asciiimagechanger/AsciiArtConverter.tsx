@@ -7,6 +7,7 @@ import { Controls } from "./components/Controls";
 import { AsciiCanvas } from "./components/AsciiCanvas";
 import { MatrixRainBackground } from "./components/MatrixRainBackground";
 import type { ColorMode } from "./types";
+import { FluidBackground } from "./components/FluidBackground";
 
 /**
  * Container component. It owns two kinds of state:
@@ -63,7 +64,7 @@ export default function AsciiArtConverter() {
       }}
     >
       <MatrixRainBackground />
-
+      <FluidBackground />
       <div 
        className="relative z-10 w-full max-w-[980px]" >      
         <h1 
