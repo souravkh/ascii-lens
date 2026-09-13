@@ -1,6 +1,10 @@
 # ASCII Lens
 
-Turn any image into colorful ASCII art, right in your browser. Upload a photo, pick a color mode, zoom in to see the detail, and download the result as a text file or a PNG.
+Turn your photo into an expressive ASCII portrait — without sharing the original image.
+ 
+**ASCII Lens** is a browser-based tool that transforms photos into ASCII art while letting you control how detailed and recognizable the result is.
+ 
+It can be used to create text-based avatars, experiment with visual identity, or share a stylized representation of yourself instead of the original photograph.
 
 ![color mode](https://img.shields.io/badge/mode-color-blueviolet) ![low detail mode](https://img.shields.io/badge/mode-low%20detail-teal) ![bw mode](https://img.shields.io/badge/mode-black%20%26%20white-lightgrey) ![spectrum mode](https://img.shields.io/badge/mode-spectrum-orange)
 
@@ -12,8 +16,12 @@ Turn any image into colorful ASCII art, right in your browser. Upload a photo, p
 4. You can zoom in/out to inspect it, and download the final art.
 
 ## Why I built this
+
+Sometimes you still want your profile to feel personal — something people associate with you — without putting your literal face out there. Sometimes you simply want something more creative.
  
-ASCII Lens turns your own photo into something that's still recognizably *you*, without exposing too much — anonymous, but personal. Whether it's privacy, personal preference, or just wanting a profile picture with more character than a generic avatar.
+ASCII Lens explores that space by transforming your photo into a character-based representation.
+
+The original image stays in your browser during processing, so you can experiment without having to upload the photo to a server.
 
 ## Color modes
 
