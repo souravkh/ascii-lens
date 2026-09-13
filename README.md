@@ -11,6 +11,10 @@ Turn any image into colorful ASCII art, right in your browser. Upload a photo, p
 3. Each character is colored based on the mode you pick.
 4. You can zoom in/out to inspect it, and download the final art.
 
+## Why I built this
+ 
+ASCII Lens turns your own photo into something that's still recognizably *you*, without exposing too much — anonymous, but personal. Whether it's privacy, personal preference, or just wanting a profile picture with more character than a generic avatar.
+
 ## Color modes
 
 | Mode | What you get |
